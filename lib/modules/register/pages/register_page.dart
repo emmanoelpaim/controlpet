@@ -1,28 +1,21 @@
-import 'package:controlpet/modules/login/bloc/login_bloc.dart';
-import 'package:controlpet/modules/login/widgets/btn_register.dart';
-import 'package:controlpet/modules/login/widgets/login_btn.dart';
-import 'package:controlpet/modules/login/widgets/social_signin.dart';
-import 'package:controlpet/modules/login/widgets/text_data_widget.dart';
-import 'package:controlpet/modules/login/widgets/text_form_field.dart';
-import 'package:controlpet/shared/components/image_builder.dart';
+import 'package:controlpet/modules/register/bloc/register_bloc.dart';
+import 'package:controlpet/modules/register/widgets/text_data_widget.dart';
 import 'package:controlpet/shared/components/loader.dart';
 import 'package:controlpet/shared/components/spacers.dart';
 import 'package:controlpet/shared/constants/constants.dart';
-import 'package:controlpet/shared/constants/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.title});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key, required this.title});
   final String title;
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   late FocusNode usernameFocus;
   late FocusNode passwordFocus;
-  late FocusNode loginBtnFocus;
   late TextEditingController userName;
   late TextEditingController password;
 
@@ -31,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     usernameFocus = FocusNode();
     passwordFocus = FocusNode();
-    loginBtnFocus = FocusNode();
     userName = TextEditingController();
     password = TextEditingController();
   }
@@ -40,7 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     usernameFocus.dispose();
     passwordFocus.dispose();
-    loginBtnFocus.dispose();
     userName.dispose();
     password.dispose();
     super.dispose();
@@ -50,18 +41,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber[100],
-      body: BlocConsumer<LoginBloc, LoginState>(
+      body: BlocConsumer<RegisterBloc, RegisterState>(
         listener: (context, state) {
-          if (state is LoginError) {
+          if (state is RegisterError) {
             buildErrorLayout();
-          } else if (state is LoginLoaded) {
+          } else if (state is RegisterLoaded) {
             clearTextData();
             Navigator.of(context)
                 .pushNamed('/dashboard', arguments: state.username);
           }
         },
         builder: (context, state) {
-          if (state is LoginLoading) {
+          if (state is RegisterLoading) {
             return LoadingWidget(child: buildInitialInput());
           } else {
             return buildInitialInput();
@@ -77,34 +68,22 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               HeightSpacer(myHeight: kSpacing),
-              ImageBuilder(imagePath: loginImages[0]),
               const TextData(message: "Petz"),
               HeightSpacer(myHeight: kSpacing),
-              InputField(
+              TextFormField(
                 focusNode: usernameFocus,
-                textController: userName,
-                label: "Username",
-                icons: const Icon(Icons.person, color: Colors.black),
+                controller: userName,
               ),
               HeightSpacer(myHeight: kSpacing),
-              InputField(
+              TextFormField(
                 focusNode: passwordFocus,
-                textController: password,
-                label: "Password",
-                icons: const Icon(Icons.lock, color: Colors.black),
+                controller: password,
               ),
               HeightSpacer(myHeight: kSpacing),
-              LoginBtn(
-                focusNode: loginBtnFocus,
-                userName: userName,
-                password: password,
-              ),
               HeightSpacer(myHeight: kSpacing),
-              const SocialSignIn(),
               const SizedBox(
                 height: 40,
               ),
-              const BtnRegister()
             ],
           ),
         ),

@@ -21,16 +21,17 @@ class LoginBtn extends StatelessWidget {
       child: OutlinedButton(
         focusNode: focusNode,
         style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.blue, width: 1),
+            side: const BorderSide(color: Colors.amber, width: 1),
             minimumSize: const Size(double.infinity, 54),
-            backgroundColor: Colors.blue[50]),
+            backgroundColor: Colors.amber[200]),
         onPressed: () {
           BlocProvider.of<LoginBloc>(context)
               .add(Login(userName.text, password.text));
         },
         child: const Text(
           'Login',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
     );

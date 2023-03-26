@@ -4,8 +4,8 @@ class ImageBuilder extends StatelessWidget {
   const ImageBuilder({
     super.key,
     required this.imagePath,
-    this.imgWidth = 200,
-    this.imgheight = 200,
+    this.imgWidth = 100,
+    this.imgheight = 100,
   });
 
   final String imagePath;

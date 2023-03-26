@@ -25,13 +25,8 @@ class InputField extends StatelessWidget {
           FocusScope.of(context).requestFocus(focusNode);
         },
         decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.blue),
-                borderRadius: kBorderRadius),
-            focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.blue),
-                borderRadius: kBorderRadius),
-            hintStyle: const TextStyle(color: Colors.blue),
+            enabledBorder: OutlineInputBorder(borderRadius: kBorderRadius),
+            focusedBorder: OutlineInputBorder(borderRadius: kBorderRadius),
             filled: true,
             fillColor: Colors.white,
             hintText: label,
